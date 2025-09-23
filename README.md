@@ -1,6 +1,6 @@
 # Digit Recognition Neural Network
 
-A handwritten digit recognition system built from scratch using a neural network with NumPy. This project implements a 2-layer neural network to classify handwritten digits (0-9) from the MNIST dataset.
+A handwritten digit recognition system built from scratch using a neural network with NumPy. This project implements a 3-layer neural network to classify handwritten digits (0-9) from the MNIST dataset.
 
 ## 🎯 Project Overview
 
@@ -21,7 +21,9 @@ Digit_Recoqnizer/
 ## 🧠 Neural Network Architecture
 
 - **Input Layer**: 784 neurons (28×28 pixel images flattened)
-- **Hidden Layer**: 10 neurons with ReLU activation
+- **Hidden Layers**:
+  - First Hidden Layer: 128 neurons with ReLU activation
+  - Second Hidden Layer: 64 neurons with ReLU activation
 - **Output Layer**: 10 neurons with Softmax activation (one for each digit 0-9)
 
 ### Key Components:
@@ -30,7 +32,7 @@ Digit_Recoqnizer/
 2. **Backward Propagation**: Calculates gradients for parameter updates
 3. **Gradient Descent**: Updates weights and biases to minimize loss
 4. **Activation Functions**:
-   - ReLU for hidden layer
+   - ReLU for hidden layers
    - Softmax for output layer
 
 ## 🚀 Features
@@ -60,8 +62,12 @@ X_train = X_train / 255.0
 ### Network Initialization
 ```python
 # Weights initialized randomly between -0.5 and 0.5
-w1 = np.random.rand(10,784) - 0.5
-b1 = np.random.rand(10,1) - 0.5
+w1 = np.random.rand(128, 784) - 0.5
+b1 = np.random.rand(128, 1) - 0.5
+w2 = np.random.rand(64, 128) - 0.5
+b2 = np.random.rand(64, 1) - 0.5
+w3 = np.random.rand(10, 64) - 0.5
+b3 = np.random.rand(10, 1) - 0.5
 ```
 
 ### Training Process
@@ -74,9 +80,10 @@ b1 = np.random.rand(10,1) - 0.5
 
 The model achieves reasonable accuracy on the training set. Key improvements made:
 
-1. **Fixed data preprocessing bugs**: Proper train/validation split
-2. **Corrected bias gradients**: Fixed gradient calculation in backpropagation
-3. **Improved softmax function**: Better numerical stability
+1. **Expanded Network Architecture**: Added a second hidden layer for better feature extraction
+2. **Fixed data preprocessing bugs**: Proper train/validation split and normalization
+3. **Corrected bias gradients**: Fixed gradient calculation in backpropagation for better learning
+4. **Improved softmax function**: Enhanced numerical stability for large values
 
 ## 🔧 Usage
 
@@ -91,12 +98,12 @@ The model achieves reasonable accuracy on the training set. Key improvements mad
 
 3. **Training the Model**:
    ```python
-   W1, b1, W2, b2 = gradient_descent(X_train, Y_train, 0.10, 1000)
+   w1, b1, w2, b2, w3, b3 = gradient_descent(X_train, Y_train, 0.10, 1000)
    ```
 
 4. **Testing Predictions**:
    ```python
-   test_prediction(index, W1, b1, W2, b2)
+   test_prediction(index, w1, b1, w2, b2, w3, b3)
    ```
 
 ## 📝 Code Structure
